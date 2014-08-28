@@ -142,7 +142,8 @@ EOF
       after = @sequel.select(Sequel.function(:NOW)).first[:now]
       rows = @sequel[:special].select.sort_by { |r| r[:_id] }
       assert_instance_of(Time, rows[0][:mosql_updated])
-      assert(rows[0][:mosql_updated] > before && rows[0][:mosql_updated] < after)
+      assert(rows[0][:mosql_updated] > before && rows[0][:mosql_updated] < after,
+        "Expected mosql_updated to be between #{before} and #{after}, but was #{rows[0][:mosql_updated]}")
     end
   end
 end
